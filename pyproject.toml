@@ -1,0 +1,13 @@
+[project]
+name = "com-kevincojean-llama-server-to-openai-adapter"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+  "fastapi==0.121.2",
+  "openai==2.8.0",
+  "mistralai==1.9.11",
+  "uvicorn[standard]==0.22.0",
+  "pytest==9.0.1",
+]
