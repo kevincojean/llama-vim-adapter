@@ -17,6 +17,7 @@ class MistralFimWrapper(BaseAIProviderWrapper):
         api_key: str,
         logger: logging.Logger,
         *,
+        timeout: int = 5,
         max_tokens: int = 1500,
         top_p: Optional[float] = None,
         min_tokens: Optional[int] = None,
@@ -29,7 +30,7 @@ class MistralFimWrapper(BaseAIProviderWrapper):
         self.temperature = temperature
         self.top_p = top_p
         self.stop = stop
-        self.timeout_seconds: int = 5
+        self.timeout_seconds: int =  timeout
 
     def query(self, prompt: str, suffix: Optional[str] = None, instructions: Optional[str] = None) -> Result[models.FIMCompletionResponse, Exception]:
         with Mistral(api_key=self.api_key.strip()) as mistral:

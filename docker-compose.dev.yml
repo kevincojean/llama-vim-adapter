@@ -8,9 +8,6 @@ services:
       FIM_PROVIDER: "MISTRAL"
       OPENAI_API_KEY: ${OPENAI_API_KEY}
       MISTRAL_API_KEY: ${MISTRAL_API_KEY}
-    volumes:
-      - ./:/app
     ports:
       - "${HOST_PORT:-29950}:29950"
     command: ["./start_fastapi.sh"]
-

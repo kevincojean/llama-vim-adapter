@@ -30,13 +30,14 @@ class Result(Generic[T, E]):
 
     def map(self, callable: Callable[[T], U]) -> 'Result[U, E]':
         if self.is_error():
-            return Result.of_error(self.get_error)
+            return Result.of_error(self.get_error())
         return Result.lift(lambda: callable(self.get_value()))
-
+ 
     def flat_map(self, callable: Callable[[T], 'Result[U, E]']) -> 'Result[U, E]':
         if self.is_error():
-            return Result.of_error(self.get_error)
+            return Result.of_error(self.get_error())
         return callable(self.get_value())
+
 
     def get_value(self) -> T:
         if self.is_error():

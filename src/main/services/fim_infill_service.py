@@ -19,11 +19,13 @@ class FimInfillService(InfillService):
 
     def process(self, request: InfillRequest) -> Result[str, Exception]:
         self.logger.debug(f"Request: {request}")
-        prompt = "".join(str(e.text) for e in request.input_extra or [] if e.text)
-        prompt += f"\n{request.input_prefix or ""}"
-        prompt += f"\n{request.prompt}"
-        prompt = prompt.strip()
-        suffix = request.input_suffix
+        prompt_parts = [str(e.text) for e in request.input_extra or [] if e.text]
+        if request.input_prefix:
+            prompt_parts.append(request.input_prefix)
+        if request.prompt:
+            prompt_parts.append(request.prompt)
+        prompt = "\n".join(prompt_parts).strip()
+        suffix = request.input_suffix or ""
         suffix = suffix.strip()
         return self.ai_provider_wrapper.query(
                 prompt=prompt,
