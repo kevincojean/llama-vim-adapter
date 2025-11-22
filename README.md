@@ -1,4 +1,4 @@
-# llama-vim-openai-adapter
+# llama-vim-adapter
 
 This project allows you to use [Mistral's Codestral FIM](https://docs.mistral.ai/models/codestral-25-08) endpoint with the [ggml-org/llama.vim](https://github.com/ggml-org/llama.vim) plugin.  
 
