@@ -34,5 +34,5 @@ class FimInfillService(InfillService):
             .flat_map(lambda resp: self.ai_provider_wrapper.extract(resp))\
             .peek(lambda compl: self.logger.debug(f"Fim prompt: {prompt}"))\
             .peek(lambda compl: self.logger.debug(f"Fim suffix: {suffix}"))\
-            .peek(lambda compl: self.logger.info(f"Fim Completion: {compl}"))
+            .peek(lambda compl: self.logger.debug(f"Fim Completion: {compl}"))
 

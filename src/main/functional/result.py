@@ -22,11 +22,16 @@ class Result(Generic[T, E]):
         self.__throwable = throwable
 
     def peek(self, callable: Callable[[T], None]) -> 'Result[T, E]':
+        """Unsafe consumer."""
+        if self.is_error():
+            return self
         try:
             callable(self.get_value())
+        except Exception:
+            # We do not change the state of the Result using .peek()
+            ...
+        finally:
             return self
-        except Exception as e:
-            return Result.of_error(e)
 
     def map(self, callable: Callable[[T], U]) -> 'Result[U, E]':
         if self.is_error():
