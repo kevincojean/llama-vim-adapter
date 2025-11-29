@@ -15,7 +15,7 @@ def infill(body: InfillRequest = Body(...)):
     service = Context.get_infill_service()
     result = service.process(body)
     if result.is_error():
-        logger.error(''.join(traceback.format_tb(result.get_error().__traceback__)))
+        logger.error(f"{result.get_error()}\n" + ''.join(traceback.format_tb(result.get_error().__traceback__)))
         return InfillResponse(content="")
     logger.info(f"Generated completion: \"{result.get_value()}\"")
     return InfillResponse(content=result.get_value())
