@@ -33,7 +33,11 @@ class MistralFimWrapper(BaseAIProviderWrapper):
         self.timeout_seconds: int =  timeout
 
     def query(self, prompt: str, suffix: Optional[str] = None, instructions: Optional[str] = None) -> Result[models.FIMCompletionResponse, Exception]:
-        with Mistral(api_key=self.api_key.strip()) as mistral:
+        api_key = self.api_key.strip()
+        if not api_key:
+            return Result.failure(ValueError("MISTRAL_API_KEY cannot be empty"))
+        
+        with Mistral(api_key=api_key) as mistral:
             self.logger.debug(f"prompt: {prompt}")
             self.logger.debug(f"suffix: {suffix}")
             return Result.lift(lambda: \

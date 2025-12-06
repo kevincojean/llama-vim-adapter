@@ -32,6 +32,7 @@ class FimInfillService(InfillService):
                 suffix=suffix,
                 instructions="")\
             .flat_map(lambda resp: self.ai_provider_wrapper.extract(resp))\
+            .map(lambda t: t.strip())\
             .peek(lambda compl: self.logger.debug(f"Fim prompt: {prompt}"))\
             .peek(lambda compl: self.logger.debug(f"Fim suffix: {suffix}"))\
             .peek(lambda compl: self.logger.debug(f"Fim Completion: {compl}"))
